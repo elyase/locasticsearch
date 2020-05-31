@@ -1,0 +1,13 @@
+site_name: locasticsearch
+site_description: Serverless full text search in Python
+site_url: https://github.com/elyase/locasticsearch
+
+theme:
+    name: 'material'
+
+repo_name: elyase/locasticsearch
+repo_url: https://github.com/elyase/locasticsearch
+edit_uri: ''
+
+nav:
+    - locasticsearch: 'index.md'
