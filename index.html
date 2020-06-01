@@ -402,20 +402,48 @@ for hit in res[&quot;hits&quot;][&quot;hits&quot;]:
 </ul>
 <h2 id="comparison-to-similar-libraries">Comparison to similar libraries</h2>
 <p><a href="https://whoosh.readthedocs.io/en/latest/intro.html">whoosh</a></p>
+<p>The most full featured <strong>pure python</strong> text search library by far:</p>
 <ul>
-<li>The most full featured pure python text search library by far</li>
-<li>Supports highlight, analyzers, query expansion, ...</li>
-<li>Unmaintained for a long time might see a revival at https://github.com/whoosh-community/whoosh</li>
+<li>👍 Supports highlight, analyzers, query expansion, several ranking functions, ...  </li>
+<li>👎 Unmaintained for a long time might see a revival at https://github.com/whoosh-community/whoosh </li>
+<li>👍 Pure python so doesnt scale as well though fine </li>
 </ul>
 <p><a href="https://www.elastic.co">elasticsearch</a></p>
-<p>The big champion of full text search. Lots of features to accomodate any use case, battle tested, scalable.</p>
+<p>The big champion of full text search. This is what you should be using in production:</p>
+<ul>
+<li>👍 Lots of features to accomodate any use case</li>
+<li>👍 Battle tested, scalable, performant</li>
+<li>👎 Non python native</li>
+<li>👎 More complex to deploy/integrate with python project for easy use cases</li>
+</ul>
+<p><a href="https://django-haystack.readthedocs.io/en/master/">django haystack</a></p>
+<p>Django Haystack provides an unified API that allows you to plug in different search backends (such as Solr, Elasticsearch, Whoosh, Xapian, etc.) without having to modify your code:</p>
+<ul>
+<li>👍 Many features, boosting, highlight, autocomplete (some backend dependent though)</li>
+<li>👍 Possibility to switch backends</li>
+<li>👎 Library lock in.</li>
+<li>👎 Despite supporting several backends, Whoosh is the only one that is python native.</li>
+</ul>
 <p><a href="https://xapian.org/docs/bindings/python/">xapian</a></p>
 <ul>
-<li>very fast and full featured (C++) but very difficult to install (needs system level compilation)</li>
-<li>The python bindings and the documentation are not that user friendly</li>
+<li>👍 Very fast and full featured (C++) </li>
+<li>👎 No pip installable (needs system level compilation)</li>
+<li>👎 The python bindings and the documentation are not that user friendly</li>
 </ul>
 <p><a href="https://radimrehurek.com/gensim/">gensim</a></p>
 <p>While gensim focuses on topic modeling you can use <code>TfidfModel</code> and <code>SparseMatrixSimilarity</code> for text search. That said this is doesnt use an inverted index (linear search) so it has limited scalability.</p>
+<ul>
+<li>👍 Approximate search</li>
+<li>👎 Focus is on topic modeling, so no intuitive APIs for full text ingestion/search</li>
+<li>👎 Doesnt support inverted indexes search (mostly full scan and approximate)</li>
+</ul>
+<p><a href="http://docs.peewee-orm.com/en/latest/">peewee</a></p>
+<p>Peewee is actually a more general ORM but offers abstractions to use full text search on Sqlite.</p>
+<ul>
+<li>👍 Support for full text search using several SQL backends (no elasticsearch though)</li>
+<li>👍 Custom ranking and analyzer functions</li>
+<li>👎 No elasticsearch compatible API</li>
+</ul>
                 
               
               
