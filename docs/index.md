@@ -26,8 +26,11 @@ That said, if you are only doing basic search operations within the subset suppo
 <a href="https://pypi.org/project/locasticsearch/" target="_blank">
     <img src="https://img.shields.io/pypi/pyversions/locasticsearch.svg" alt="Python Versions">
 </a>
+</p>
+
 
 ## Getting started
+
 ```
 from locasticsearch import Locasticsearch
 from datetime import datetime
@@ -79,5 +82,26 @@ You should use Locasticsearch if:
 - you have basic text search needs and Elasticsearch would be overkill
 - you want very easy deployments that only involve pip installs
 - using Java from a python program makes you feel dirty 
+
+## Comparison to similar libraries
+
+[whoosh](https://whoosh.readthedocs.io/en/latest/intro.html)
+
+* The most full featured pure python text search library by far
+* Supports highlight, analyzers, query expansion, ...
+* Unmaintained for a long time might see a revival at https://github.com/whoosh-community/whoosh
+
+[elasticsearch](https://www.elastic.co)
+
+The big champion of full text search. Lots of features to accomodate any use case, battle tested, scalable.
+
+[xapian](https://xapian.org/docs/bindings/python/)
+
+* very fast and full featured (C++) but very difficult to install (needs system level compilation)
+* The python bindings and the documentation are not that user friendly
+
+[gensim](https://radimrehurek.com/gensim/)
+
+While gensim focuses on topic modeling you can use `TfidfModel` and `SparseMatrixSimilarity` for text search. That said this is doesnt use an inverted index (linear search) so it has limited scalability.
 
 
