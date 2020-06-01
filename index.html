@@ -330,9 +330,9 @@
     <em>Serverless full text search in Python</em>
 </p>
 
-<p>Locasticsearch provides serverless full text search powered by <a href="https://www.sqlite.org/fts5.html">sqlite full text search capabilities</a> but trying to be compatible with a subset of the elasticsearch API.</p>
-<p>That way you can comfortably develop your text search appplication without needing to set up servers, but knowing that you are not locked in to a library. When you are ready to .</p>
-<p>That said, if you are only doing basic search operations within the subset supported by this library, and you dont have a lot of documents (less than a million) that would justify going for a cluster deployment, Locasticsearch <a href="benchmarks">can be a faster</a> alternative to Elasticsearch.</p>
+<p>Locasticsearch provides serverless full text search powered by <a href="https://www.sqlite.org/fts5.html">sqlite full text search capabilities</a> but trying to be compatible with (a subset of) the elasticsearch API.</p>
+<p>That way you can comfortably develop your text search appplication without needing to set up services and smoothly transition to Elasticsearch for scale or more features without changing your code.</p>
+<p>That said, if you are only doing basic search operations within the subset supported by this library, and dont have a lot of documents (~million) that would justify going for a cluster deployment, Locasticsearch <a href="benchmarks">can be a faster</a> alternative to Elasticsearch.</p>
 <p align="center">
 <a href="https://github.com/elyase/locasticsearch/actions?query=workflow%3ATest" target="_blank">
     <img src="https://github.com/elyase/locasticsearch/workflows/Test/badge.svg" alt="Test">
@@ -389,14 +389,14 @@ for hit in res[&quot;hits&quot;][&quot;hits&quot;]:
 <h2 id="to-use-or-not-to-use">To use or not to use</h2>
 <p>You should NOT use Locasticsearch if:</p>
 <ul>
-<li>you are deploying a security sensitive application. Locasticsearch code is very prone to SQL injection attacks.</li>
+<li>you are deploying a security sensitive application. Locasticsearch code is very prone to SQL injection attacks. This should improve in future releases.</li>
 <li>Your searches are more complicated than what you would find in a 5 min Elasticsearch tutorial. Elasticsearch has a huge API and it is very unlikely that we can support even a sizable portion of that.</li>
-<li>You hate buggy libraries. Locasticsearch is a very young project so bugs are guaranteed. Check the tests to see if your needs are covered. </li>
+<li>You hate buggy libraries. Locasticsearch is a very young project so bugs are guaranteed. You can check the tests to see if your needs are covered. </li>
 </ul>
 <p>You should use Locasticsearch if:</p>
 <ul>
 <li>you dont want a docker or an elasticsearch service using precious resources in your laptop</li>
-<li>you have basic text search needs and Elasticsearch would be overkill</li>
+<li>you only need basic text search and Elasticsearch would be overkill</li>
 <li>you want very easy deployments that only involve pip installs</li>
 <li>using Java from a python program makes you feel dirty </li>
 </ul>
