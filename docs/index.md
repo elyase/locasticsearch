@@ -4,11 +4,11 @@
     <em>Serverless full text search in Python</em>
 </p>
 
-Locasticsearch provides serverless full text search powered by [sqlite full text search capabilities](https://www.sqlite.org/fts5.html) but trying to be compatible with a subset of the elasticsearch API.
+Locasticsearch provides serverless full text search powered by [sqlite full text search capabilities](https://www.sqlite.org/fts5.html) but trying to be compatible with (a subset of) the elasticsearch API.
 
-That way you can comfortably develop your text search appplication without needing to set up servers, but knowing that you are not locked in to a library. When you are ready to .
+That way you can comfortably develop your text search appplication without needing to set up services and smoothly transition to Elasticsearch for scale or more features without changing your code.
 
-That said, if you are only doing basic search operations within the subset supported by this library, and you dont have a lot of documents (less than a million) that would justify going for a cluster deployment, Locasticsearch [can be a faster](benchmarks) alternative to Elasticsearch.
+That said, if you are only doing basic search operations within the subset supported by this library, and dont have a lot of documents (~million) that would justify going for a cluster deployment, Locasticsearch [can be a faster](benchmarks) alternative to Elasticsearch.
 
 <p align="center">
 <a href="https://github.com/elyase/locasticsearch/actions?query=workflow%3ATest" target="_blank">
@@ -72,14 +72,14 @@ pip install locasticsearch
 
 You should NOT use Locasticsearch if:
 
-- you are deploying a security sensitive application. Locasticsearch code is very prone to SQL injection attacks.
+- you are deploying a security sensitive application. Locasticsearch code is very prone to SQL injection attacks. This should improve in future releases.
 - Your searches are more complicated than what you would find in a 5 min Elasticsearch tutorial. Elasticsearch has a huge API and it is very unlikely that we can support even a sizable portion of that.
-- You hate buggy libraries. Locasticsearch is a very young project so bugs are guaranteed. Check the tests to see if your needs are covered. 
+- You hate buggy libraries. Locasticsearch is a very young project so bugs are guaranteed. You can check the tests to see if your needs are covered. 
 
 You should use Locasticsearch if:
 
 - you dont want a docker or an elasticsearch service using precious resources in your laptop
-- you have basic text search needs and Elasticsearch would be overkill
+- you only need basic text search and Elasticsearch would be overkill
 - you want very easy deployments that only involve pip installs
 - using Java from a python program makes you feel dirty 
 
@@ -87,21 +87,53 @@ You should use Locasticsearch if:
 
 [whoosh](https://whoosh.readthedocs.io/en/latest/intro.html)
 
-* The most full featured pure python text search library by far
-* Supports highlight, analyzers, query expansion, ...
-* Unmaintained for a long time might see a revival at https://github.com/whoosh-community/whoosh
+The most full featured **pure python** text search library by far:
+
+- 👍 Supports highlight, analyzers, query expansion, several ranking functions, ...  
+- 👎 Unmaintained for a long time might see a revival at https://github.com/whoosh-community/whoosh 
+- 👍 Pure python so doesnt scale as well (still fast enough for small medium datasets) 
 
 [elasticsearch](https://www.elastic.co)
 
-The big champion of full text search. Lots of features to accomodate any use case, battle tested, scalable.
+The big champion of full text search. This is what you should be using in production:
+
+* 👍 Lots of features to accomodate any use case
+* 👍 Battle tested, scalable, performant
+* 👎 Non python native: more complex to deploy/integrate with python project for easy use cases
+
+
+[django haystack](https://django-haystack.readthedocs.io/en/master/)
+
+Django Haystack provides an unified API that allows you to plug in different search backends (such as Solr, Elasticsearch, Whoosh, Xapian, etc.) without having to modify your code:
+
+* 👍 Many features, boosting, highlight, autocomplete (some backend dependent though)
+* 👍 Possibility to switch backends
+* 👎 Library lock in.
+* 👎 Despite supporting several backends, Whoosh is the only one that is python native.
+
 
 [xapian](https://xapian.org/docs/bindings/python/)
 
-* very fast and full featured (C++) but very difficult to install (needs system level compilation)
-* The python bindings and the documentation are not that user friendly
+* 👍 Very fast and full featured (C++) 
+* 👎 No pip installable (needs system level compilation)
+* 👎 The python bindings and the documentation are not that user friendly
+
 
 [gensim](https://radimrehurek.com/gensim/)
 
 While gensim focuses on topic modeling you can use `TfidfModel` and `SparseMatrixSimilarity` for text search. That said this is doesnt use an inverted index (linear search) so it has limited scalability.
+
+* 👍 Approximate search
+* 👎 Focus is on topic modeling, so no intuitive APIs for full text ingestion/search
+* 👎 Doesnt support inverted indexes search (mostly full scan and approximate)
+
+
+[peewee](http://docs.peewee-orm.com/en/latest/)
+
+Peewee is actually a more general ORM but offers abstractions to use full text search on Sqlite.
+
+* 👍 Support for full text search using several SQL backends (no elasticsearch though)
+* 👍 Custom ranking and analyzer functions
+* 👎 No elasticsearch compatible API
 
 
