@@ -406,15 +406,14 @@ for hit in res[&quot;hits&quot;][&quot;hits&quot;]:
 <ul>
 <li>👍 Supports highlight, analyzers, query expansion, several ranking functions, ...  </li>
 <li>👎 Unmaintained for a long time might see a revival at https://github.com/whoosh-community/whoosh </li>
-<li>👍 Pure python so doesnt scale as well though fine </li>
+<li>👍 Pure python so doesnt scale as well (still fast enough for small medium datasets) </li>
 </ul>
 <p><a href="https://www.elastic.co">elasticsearch</a></p>
 <p>The big champion of full text search. This is what you should be using in production:</p>
 <ul>
 <li>👍 Lots of features to accomodate any use case</li>
 <li>👍 Battle tested, scalable, performant</li>
-<li>👎 Non python native</li>
-<li>👎 More complex to deploy/integrate with python project for easy use cases</li>
+<li>👎 Non python native: more complex to deploy/integrate with python project for easy use cases</li>
 </ul>
 <p><a href="https://django-haystack.readthedocs.io/en/master/">django haystack</a></p>
 <p>Django Haystack provides an unified API that allows you to plug in different search backends (such as Solr, Elasticsearch, Whoosh, Xapian, etc.) without having to modify your code:</p>
