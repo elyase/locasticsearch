@@ -92,19 +92,22 @@ You should use Locasticsearch if:
 ## Next steps
 
 - [ ] Add a real query DSL parsing
+- [ ] Bulk indexing / scan
 - [ ] Add simplified non ES compatible interface for easy JSON ingestion, querying
 - [ ] Document supported vs unsupported query types
 
 
 ## Comparison to similar libraries
 
+Some quick thoughts about existing tools, feel free to add/comment:
+
 ### [whoosh](https://whoosh.readthedocs.io/en/latest/intro.html)
 
 The most full featured **pure python** text search library by far:
 
 - 👍 Supports highlight, analyzers, query expansion, several ranking functions, ...  
-- 👎 Unmaintained for a long time might see a revival at https://github.com/whoosh-community/whoosh 
-- 👍 Pure python so doesnt scale as well (still fast enough for small medium datasets) 
+- 👎 Unmaintained for a long time though might see a revival at https://github.com/whoosh-community/whoosh 
+- 👍 Pure python so doesn't scale as well (still fast enough for small/medium datasets) 
 
 ### [elasticsearch](https://www.elastic.co)
 
@@ -114,6 +117,15 @@ The big champion of full text search. This is what you should be using in produc
 - 👍 Battle tested, scalable, performant
 - 👎 Non python native: more complex to deploy/integrate with python project for easy use cases
 
+### [pyserini](https://github.com/castorini/pyserini/)
+
+Though not pure python, pyserini is a good compromise if you want something local and scalable:
+
+- 👍 Acess to Lucene from within Python (via [pyjnius](https://github.com/kivy/pyjnius) Java bridge)
+- 👍 Serverless / local deployment 
+- 👎 DSL/library lock in
+- 👎 Extra JAVA runtime
+
 
 ### [django haystack](https://django-haystack.readthedocs.io/en/master/)
 
@@ -121,7 +133,7 @@ Django Haystack provides an unified API that allows you to plug in different sea
 
 - 👍 Many features, boosting, highlight, autocomplete (some backend dependent though)
 - 👍 Possibility to switch backends
-- 👎 Library lock in.
+- 👎 DSL/library lock in
 - 👎 Despite supporting several backends, Whoosh is the only one that is python native.
 
 
@@ -138,12 +150,12 @@ While gensim focuses on topic modeling you can use `TfidfModel` and `SparseMatri
 
 - 👍 Unique features such as approximate search
 - 👎 Focus is on topic modeling, so no intuitive APIs for full text ingestion/search
-- 👎 Doesnt support inverted indexes search (mostly full scan and approximate)
+- 👎 Doesn't support inverted indexes search (mostly full scan and approximate)
 
 
 ### [peewee](http://docs.peewee-orm.com/en/latest/)
 
-Peewee is actually a more general ORM but offers abstractions to use full text search on Sqlite.
+Peewee is actually a more general ORM but offers abstractions to use full text search on Sqlite:
 
 - 👍 Support for full text search using several SQL backends (no elasticsearch though)
 - 👍 Custom ranking and analyzer functions

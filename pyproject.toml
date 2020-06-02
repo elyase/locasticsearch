@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "locasticsearch"
-version = "0.0.1"
+version = "0.0.3"
 description = "Serverless full text search in Python"
 authors = ["Yaser Martinez <yaser.martinez@gmail.com>"]
 license = "MIT"
