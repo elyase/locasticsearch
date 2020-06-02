@@ -4,6 +4,8 @@
     <em>Serverless full text search in Python</em>
 </p>
 
+> ⚠️ **alpha status**: 🚧 Come back in a couple weekends 🚧
+
 Locasticsearch provides serverless full text search powered by [sqlite full text search capabilities](https://www.sqlite.org/fts5.html) but trying to be compatible with (a subset of) the elasticsearch API.
 
 That way you can comfortably develop your text search appplication without needing to set up services and smoothly transition to Elasticsearch for scale or more features without changing your code.
@@ -47,13 +49,16 @@ res = es.index(index="test-index", doc_type="tweet", id=1, body=doc)
 res = es.get(index="test-index", doc_type="tweet", id=1)
 print(res["_source"])
 
+# this will get ignored in Locasticsearch
 es.indices.refresh(index="test-index")
 
 res = es.search(index="test-index", body={"query": {"match_all": {}}})
 print("Got %d Hits:" % res["hits"]["total"]["value"])
 for hit in res["hits"]["hits"]:
     print("%(timestamp)s %(author)s: %(text)s" % hit["_source"])
-```    
+```
+
+We are also adding a simplified API that can be converted to Elasticsearch.
 
 ## Features
 
@@ -81,11 +86,19 @@ You should use Locasticsearch if:
 - you dont want a docker or an elasticsearch service using precious resources in your laptop
 - you only need basic text search and Elasticsearch would be overkill
 - you want very easy deployments that only involve pip installs
-- using Java from a python program makes you feel dirty 
+- using Java from a python program makes you feel dirty
+
+
+## Next steps
+
+- [] Add a real query DSL parsing
+- [] Add simplified non ES compatible interface for easy JSON ingestion, querying
+- [] Document supported vs unsupported query types
+
 
 ## Comparison to similar libraries
 
-[whoosh](https://whoosh.readthedocs.io/en/latest/intro.html)
+### [whoosh](https://whoosh.readthedocs.io/en/latest/intro.html)
 
 The most full featured **pure python** text search library by far:
 
@@ -93,47 +106,47 @@ The most full featured **pure python** text search library by far:
 - 👎 Unmaintained for a long time might see a revival at https://github.com/whoosh-community/whoosh 
 - 👍 Pure python so doesnt scale as well (still fast enough for small medium datasets) 
 
-[elasticsearch](https://www.elastic.co)
+### [elasticsearch](https://www.elastic.co)
 
 The big champion of full text search. This is what you should be using in production:
 
-* 👍 Lots of features to accomodate any use case
-* 👍 Battle tested, scalable, performant
-* 👎 Non python native: more complex to deploy/integrate with python project for easy use cases
+- 👍 Lots of features to accomodate any use case
+- 👍 Battle tested, scalable, performant
+- 👎 Non python native: more complex to deploy/integrate with python project for easy use cases
 
 
-[django haystack](https://django-haystack.readthedocs.io/en/master/)
+### [django haystack](https://django-haystack.readthedocs.io/en/master/)
 
 Django Haystack provides an unified API that allows you to plug in different search backends (such as Solr, Elasticsearch, Whoosh, Xapian, etc.) without having to modify your code:
 
-* 👍 Many features, boosting, highlight, autocomplete (some backend dependent though)
-* 👍 Possibility to switch backends
-* 👎 Library lock in.
-* 👎 Despite supporting several backends, Whoosh is the only one that is python native.
+- 👍 Many features, boosting, highlight, autocomplete (some backend dependent though)
+- 👍 Possibility to switch backends
+- 👎 Library lock in.
+- 👎 Despite supporting several backends, Whoosh is the only one that is python native.
 
 
-[xapian](https://xapian.org/docs/bindings/python/)
+### [xapian](https://xapian.org/docs/bindings/python/)
 
-* 👍 Very fast and full featured (C++) 
-* 👎 No pip installable (needs system level compilation)
-* 👎 The python bindings and the documentation are not that user friendly
+- 👍 Very fast and full featured (C++) 
+- 👎 No pip installable (needs system level compilation)
+- 👎 The python bindings and the documentation are not that user friendly
 
 
-[gensim](https://radimrehurek.com/gensim/)
+### [gensim](https://radimrehurek.com/gensim/)
 
 While gensim focuses on topic modeling you can use `TfidfModel` and `SparseMatrixSimilarity` for text search. That said this is doesnt use an inverted index (linear search) so it has limited scalability.
 
-* 👍 Approximate search
-* 👎 Focus is on topic modeling, so no intuitive APIs for full text ingestion/search
-* 👎 Doesnt support inverted indexes search (mostly full scan and approximate)
+- 👍 Unique features such as approximate search
+- 👎 Focus is on topic modeling, so no intuitive APIs for full text ingestion/search
+- 👎 Doesnt support inverted indexes search (mostly full scan and approximate)
 
 
-[peewee](http://docs.peewee-orm.com/en/latest/)
+### [peewee](http://docs.peewee-orm.com/en/latest/)
 
 Peewee is actually a more general ORM but offers abstractions to use full text search on Sqlite.
 
-* 👍 Support for full text search using several SQL backends (no elasticsearch though)
-* 👍 Custom ranking and analyzer functions
-* 👎 No elasticsearch compatible API
+- 👍 Support for full text search using several SQL backends (no elasticsearch though)
+- 👍 Custom ranking and analyzer functions
+- 👎 No elasticsearch compatible API
 
 
