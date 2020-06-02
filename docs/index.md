@@ -91,9 +91,9 @@ You should use Locasticsearch if:
 
 ## Next steps
 
-- [] Add a real query DSL parsing
-- [] Add simplified non ES compatible interface for easy JSON ingestion, querying
-- [] Document supported vs unsupported query types
+- [ ] Add a real query DSL parsing
+- [ ] Add simplified non ES compatible interface for easy JSON ingestion, querying
+- [ ] Document supported vs unsupported query types
 
 
 ## Comparison to similar libraries
