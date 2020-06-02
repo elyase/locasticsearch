@@ -117,6 +117,14 @@ The big champion of full text search. This is what you should be using in produc
 - 👍 Battle tested, scalable, performant
 - 👎 Non python native: more complex to deploy/integrate with python project for easy use cases
 
+### [tantivy](https://github.com/tantivy-search/tantivy-py)
+
+This is a good recommendation for local full text search if you dont care about elastic search API compatibility
+
+- 👍 Simple to set up and use: `pip install tantivy`
+- 👍 Fast rust based engine
+- 👎 DSL/library lock in, no elastic search API
+
 ### [pyserini](https://github.com/castorini/pyserini/)
 
 Though not pure python, pyserini is a good compromise if you want something local and scalable:
@@ -125,7 +133,6 @@ Though not pure python, pyserini is a good compromise if you want something loca
 - 👍 Serverless / local deployment 
 - 👎 DSL/library lock in
 - 👎 Extra JAVA runtime
-
 
 ### [django haystack](https://django-haystack.readthedocs.io/en/master/)
 
