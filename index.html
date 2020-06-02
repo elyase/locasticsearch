@@ -236,9 +236,64 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next steps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#comparison-to-similar-libraries" class="md-nav__link">
     Comparison to similar libraries
   </a>
+  
+    <nav class="md-nav" aria-label="Comparison to similar libraries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whoosh" class="md-nav__link">
+    whoosh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch" class="md-nav__link">
+    elasticsearch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django-haystack" class="md-nav__link">
+    django haystack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xapian" class="md-nav__link">
+    xapian
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gensim" class="md-nav__link">
+    gensim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peewee" class="md-nav__link">
+    peewee
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -303,9 +358,64 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next steps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#comparison-to-similar-libraries" class="md-nav__link">
     Comparison to similar libraries
   </a>
+  
+    <nav class="md-nav" aria-label="Comparison to similar libraries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whoosh" class="md-nav__link">
+    whoosh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elasticsearch" class="md-nav__link">
+    elasticsearch
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#django-haystack" class="md-nav__link">
+    django haystack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xapian" class="md-nav__link">
+    xapian
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gensim" class="md-nav__link">
+    gensim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peewee" class="md-nav__link">
+    peewee
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -330,6 +440,9 @@
     <em>Serverless full text search in Python</em>
 </p>
 
+<blockquote>
+<p>⚠️ <strong>alpha status</strong>: 🚧 Come back in a couple weekends 🚧</p>
+</blockquote>
 <p>Locasticsearch provides serverless full text search powered by <a href="https://www.sqlite.org/fts5.html">sqlite full text search capabilities</a> but trying to be compatible with (a subset of) the elasticsearch API.</p>
 <p>That way you can comfortably develop your text search appplication without needing to set up services and smoothly transition to Elasticsearch for scale or more features without changing your code.</p>
 <p>That said, if you are only doing basic search operations within the subset supported by this library, and dont have a lot of documents (~million) that would justify going for a cluster deployment, Locasticsearch <a href="benchmarks">can be a faster</a> alternative to Elasticsearch.</p>
@@ -367,6 +480,7 @@ res = es.index(index=&quot;test-index&quot;, doc_type=&quot;tweet&quot;, id=1, b
 res = es.get(index=&quot;test-index&quot;, doc_type=&quot;tweet&quot;, id=1)
 print(res[&quot;_source&quot;])
 
+# this will get ignored in Locasticsearch
 es.indices.refresh(index=&quot;test-index&quot;)
 
 res = es.search(index=&quot;test-index&quot;, body={&quot;query&quot;: {&quot;match_all&quot;: {}}})
@@ -375,6 +489,7 @@ for hit in res[&quot;hits&quot;][&quot;hits&quot;]:
     print(&quot;%(timestamp)s %(author)s: %(text)s&quot; % hit[&quot;_source&quot;])
 </code></pre>
 
+<p>We are also adding a simplified API that can be converted to Elasticsearch.</p>
 <h2 id="features">Features</h2>
 <ul>
 <li>💯% local, no server management</li>
@@ -398,24 +513,30 @@ for hit in res[&quot;hits&quot;][&quot;hits&quot;]:
 <li>you dont want a docker or an elasticsearch service using precious resources in your laptop</li>
 <li>you only need basic text search and Elasticsearch would be overkill</li>
 <li>you want very easy deployments that only involve pip installs</li>
-<li>using Java from a python program makes you feel dirty </li>
+<li>using Java from a python program makes you feel dirty</li>
+</ul>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li>[] Add a real query DSL parsing</li>
+<li>[] Add simplified non ES compatible interface for easy JSON ingestion, querying</li>
+<li>[] Document supported vs unsupported query types</li>
 </ul>
 <h2 id="comparison-to-similar-libraries">Comparison to similar libraries</h2>
-<p><a href="https://whoosh.readthedocs.io/en/latest/intro.html">whoosh</a></p>
+<h3 id="whoosh"><a href="https://whoosh.readthedocs.io/en/latest/intro.html">whoosh</a></h3>
 <p>The most full featured <strong>pure python</strong> text search library by far:</p>
 <ul>
 <li>👍 Supports highlight, analyzers, query expansion, several ranking functions, ...  </li>
 <li>👎 Unmaintained for a long time might see a revival at https://github.com/whoosh-community/whoosh </li>
 <li>👍 Pure python so doesnt scale as well (still fast enough for small medium datasets) </li>
 </ul>
-<p><a href="https://www.elastic.co">elasticsearch</a></p>
+<h3 id="elasticsearch"><a href="https://www.elastic.co">elasticsearch</a></h3>
 <p>The big champion of full text search. This is what you should be using in production:</p>
 <ul>
 <li>👍 Lots of features to accomodate any use case</li>
 <li>👍 Battle tested, scalable, performant</li>
 <li>👎 Non python native: more complex to deploy/integrate with python project for easy use cases</li>
 </ul>
-<p><a href="https://django-haystack.readthedocs.io/en/master/">django haystack</a></p>
+<h3 id="django-haystack"><a href="https://django-haystack.readthedocs.io/en/master/">django haystack</a></h3>
 <p>Django Haystack provides an unified API that allows you to plug in different search backends (such as Solr, Elasticsearch, Whoosh, Xapian, etc.) without having to modify your code:</p>
 <ul>
 <li>👍 Many features, boosting, highlight, autocomplete (some backend dependent though)</li>
@@ -423,20 +544,20 @@ for hit in res[&quot;hits&quot;][&quot;hits&quot;]:
 <li>👎 Library lock in.</li>
 <li>👎 Despite supporting several backends, Whoosh is the only one that is python native.</li>
 </ul>
-<p><strong><a href="https://xapian.org/docs/bindings/python/">xapian</a></strong></p>
+<h3 id="xapian"><a href="https://xapian.org/docs/bindings/python/">xapian</a></h3>
 <ul>
 <li>👍 Very fast and full featured (C++) </li>
 <li>👎 No pip installable (needs system level compilation)</li>
 <li>👎 The python bindings and the documentation are not that user friendly</li>
 </ul>
-<p><a href="https://radimrehurek.com/gensim/">gensim</a></p>
+<h3 id="gensim"><a href="https://radimrehurek.com/gensim/">gensim</a></h3>
 <p>While gensim focuses on topic modeling you can use <code>TfidfModel</code> and <code>SparseMatrixSimilarity</code> for text search. That said this is doesnt use an inverted index (linear search) so it has limited scalability.</p>
 <ul>
-<li>👍 Approximate search</li>
+<li>👍 Unique features such as approximate search</li>
 <li>👎 Focus is on topic modeling, so no intuitive APIs for full text ingestion/search</li>
 <li>👎 Doesnt support inverted indexes search (mostly full scan and approximate)</li>
 </ul>
-<p><a href="http://docs.peewee-orm.com/en/latest/">peewee</a></p>
+<h3 id="peewee"><a href="http://docs.peewee-orm.com/en/latest/">peewee</a></h3>
 <p>Peewee is actually a more general ORM but offers abstractions to use full text search on Sqlite.</p>
 <ul>
 <li>👍 Support for full text search using several SQL backends (no elasticsearch though)</li>
