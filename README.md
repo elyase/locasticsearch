@@ -4,7 +4,7 @@
     <em>Serverless full text search in Python</em>
 </p>
 
-> ⚠️ **alpha status**: 🚧 Come back in a couple weekends 🚧
+> ⚠️ **dormant status**: 🚧  🚧
 
 Locasticsearch provides serverless full text search powered by [sqlite full text search capabilities](https://www.sqlite.org/fts5.html) but trying to be compatible with (a subset of) the elasticsearch API.
 
